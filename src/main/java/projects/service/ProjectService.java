@@ -15,7 +15,7 @@ public class ProjectService {
 		
 		return projectDao.insertProject(project);
 	}
-
+	//this mehod return the results of themethod call to the DAO class
 	public List<Project> fetchAllProjects() {
 		return projectDao.fetchAllProjects();
 		

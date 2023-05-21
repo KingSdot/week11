@@ -17,6 +17,8 @@ public class ProjectsApp {
 	private ProjectService projectService = new ProjectService();
 	Project curProject;
 	
+	//created a List of optins for the user to choose from.
+	
 	//@formatter:off	
 		private List<String> operations = List.of(
 				"1) add a project",
@@ -32,6 +34,8 @@ public class ProjectsApp {
 		new ProjectsApp().processUserSelections();
 
 }
+	//The processUserSelections method gets a selection from the user, and then acts on that selection.
+	//Added a try and catch block so an error is thrown if user makes a selection that is not listed.
 	private void processUserSelections() {
 		boolean done = false;
 		
@@ -121,7 +125,7 @@ public class ProjectsApp {
 	  projectService.modifyProjectDetails(project);
 	  curProject = projectService.fetchProjectById(curProject.getProjectId());
 	}
-	
+	//This method selects the project by id 
 	private void selectProject() {
 		listProjects();
 		Integer projectId = getIntInput("Enter a project ID to select a project");
@@ -132,6 +136,7 @@ public class ProjectsApp {
 		
 		
 	}
+	//This method list all projects
 	private void listProjects() {
 		List<Project> projects = projectService.fetchAllProjects();
 		
@@ -141,6 +146,7 @@ public class ProjectsApp {
 		
 	}
 	
+	//This method gather the projects details from the user.
 	private void createProject() {
 		String projectName = getStringInput("Enter the project name");
 		BigDecimal estimatedHours = getDecimalInput("Enter the estimated hours");
@@ -164,6 +170,7 @@ public class ProjectsApp {
 		System.out.println("You have successfully created project: " + dbProject);
 		
 	}
+	//This method gets decimal input and sets it to two decimal points
 	private BigDecimal getDecimalInput(String prompt) {
 		
 		String input = getStringInput(prompt);
@@ -180,11 +187,13 @@ public class ProjectsApp {
 		}
 		
 	}
+	//This method prints a statement when user is exiting the menu.
 	private boolean exitMenu() {
 		System.out.println("Exiting the Menu");
 		
 		return true;
 	}
+	//This method gets user input for the selection they made as an Integer.
 	private int getUserSelection() {
 		printOperations();
 		
@@ -193,6 +202,8 @@ public class ProjectsApp {
 		return Objects.isNull(input) ? -1 : input;
 	}
 	
+	//This method gets input from the user and converts it to an Integer
+	//Created a try and catch block. catch block throws exception if invalid number is enter.
 	private Integer getIntInput(String prompt) {
 		
 		String input = getStringInput(prompt);
@@ -209,6 +220,7 @@ public class ProjectsApp {
 		}
 	}
 	
+	//This method is what really prints the prompts and gets the input from the user.
 	private String getStringInput(String prompt) {
 		System.out.print(prompt + ": ");
 		
@@ -217,6 +229,7 @@ public class ProjectsApp {
 		return input.isBlank() ? null : input.trim();
 	}
 	
+	//This method prints each available selection to the console depending on the choice the user makes.
 	private void printOperations() {
 		System.out.println("\nThese are the available selections. Press the Enter key to quit:");
 		

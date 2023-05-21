@@ -19,7 +19,7 @@ import projects.exception.DbException;
 import provided.util.DaoBase;
 
 public class ProjectDao extends DaoBase{
-	
+	//Constant variables that will be used throughout the project
 	private static final String CATEGORY_TABLE = "category";
 	private static final String MATERIAL_TABLE = "material";
 	private static final String PROJECT_TABLE = "project";
@@ -27,6 +27,10 @@ public class ProjectDao extends DaoBase{
 	private static final String STEP_TABLE = "step";
 	
 
+	//wrote sql statement that will insert the values from Project object
+	//wrote a try statement to get a connection and start the transaction
+	//set the project details as parameters
+	//wrote catch statement t rollbacktransaction if theres an exception and a statement to update project data
 	public Project insertProject(Project project) {
 		// @formatter:off
 		String sql = ""
@@ -65,7 +69,9 @@ public class ProjectDao extends DaoBase{
 		
 	}
 
-
+	//wrote sql statement that tells MySQL to return all project rows without materials, steps and categories.
+	//created a connection and started a transaction
+	//got a result set from prepared statements and iterate through the result set to create project object for each row.
 	public List<Project> fetchAllProjects() {
 		String sql = "SELECT * FROM " + PROJECT_TABLE + " ORDER BY project_name";
 		
@@ -92,7 +98,7 @@ public class ProjectDao extends DaoBase{
 		}
 		
 	}
-
+	//This method retrieves a project row and all associated child rows.
 	public Optional<Project> fetchProjectById(Integer projectId) {
 		String sql = "SELECT * FROM " + PROJECT_TABLE+ " WHERE project_id = ?";
 		
@@ -130,7 +136,7 @@ public class ProjectDao extends DaoBase{
 		}
 	  }
 	
-
+	//created a list to return categories
 	private List<Category> fetchCategoriesForProject(Connection conn, Integer projectId) 
 			throws SQLException{
 		//@formatter:off
@@ -154,7 +160,7 @@ public class ProjectDao extends DaoBase{
 		     }
 		   }
 
-
+	//created a list to return the steps of the project
 	private List<Step> fetchStepsForProject(Connection conn, Integer projectId) 
 			throws SQLException{
 		String sql = "SELECT * FROM " + STEP_TABLE + " WHERE project_id = ?";
@@ -173,7 +179,7 @@ public class ProjectDao extends DaoBase{
 		   }
 		 }
 
-
+	//created a list to return materials for a project
 	private List<Material> fetchMaterialsForProject(Connection conn, Integer projectId)
 			throws SQLException {
 		String sql = "SELECT * FROM " + MATERIAL_TABLE + " WHERE project_id = ?";
